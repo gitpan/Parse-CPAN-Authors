@@ -1,4 +1,9 @@
 CHANGES file for Parse::CPAN::Authors
 
+2.22 Mon Jul  5 17:10:50 BST 2004
+  - fix small typo in docs
+  - silence warnings produced by Mail::Address
+  - use IO::Zlib to read compressed files
+
 2.20 Sat Mar  6 20:24:14 GMT 2004
   - first release

@@ -8,6 +8,7 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Parse/CPAN/Authors.pm',
           'PREREQ_PM' => {
                            'Test::More' => 0,
+                           'IO::Zlib' => 0,
                            'Mail::Address' => 0,
                            'Class::Accessor::Fast' => 0
                          }

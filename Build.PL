@@ -6,6 +6,7 @@ my $build = Module::Build->new(
   license     => 'perl',
   module_name => 'Parse::CPAN::Authors',
   requires    => {
+      'IO::Zlib' => 0,
       'Test::More' => 0,
       'Class::Accessor::Fast' => 0,
       'Mail::Address' => 0,
