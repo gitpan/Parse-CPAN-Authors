@@ -9,4 +9,7 @@ MANIFEST			This list of files
 META.yml
 README
 t/01mailrc.txt.gz
+t/01mailrc.txt
 t/simple.t
+t/pod.t
+t/pod_coverage.t

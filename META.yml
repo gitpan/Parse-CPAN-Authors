@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: Parse-CPAN-Authors
-version: 2.22
+version: 2.24
 author:
   - Leon Brocard <acme@astray.com>
 abstract: Parse 01mailrc.txt.gz
@@ -9,12 +9,12 @@ requires:
   Class::Accessor::Fast: 0
   IO::Zlib: 0
   Mail::Address: 0
+  Test::Exception: 0
   Test::More: 0
 provides:
   Parse::CPAN::Authors:
     file: lib/Parse/CPAN/Authors.pm
-    version: 2.22
+    version: 2.24
   Parse::CPAN::Authors::Author:
     file: lib/Parse/CPAN/Authors/Author.pm
-    version: 2.12
-generated_by: Module::Build version 0.23
+generated_by: Module::Build version 0.25

@@ -1,5 +1,10 @@
 CHANGES file for Parse::CPAN::Authors
 
+2.24 Thu Sep 23 16:55:29 BST 2004
+  - more docs
+  - increased test coverage
+  - new tests for Pod checking & coverage
+
 2.22 Mon Jul  5 17:10:50 BST 2004
   - fix small typo in docs
   - silence warnings produced by Mail::Address

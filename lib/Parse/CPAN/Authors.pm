@@ -6,7 +6,7 @@ use Parse::CPAN::Authors::Author;
 use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( mailrc data ));
 use vars qw($VERSION);
-$VERSION = '2.22';
+$VERSION = '2.24';
 
 sub new {
   my $class = shift;
@@ -19,8 +19,8 @@ sub new {
   if ($filename =~ /^alias /) {
     $self->mailrc($filename);
   } elsif ($filename =~ /\.gz/) {
-    my $fh = IO::Zlib->new($filename, "rb") || 
-	die "Failed to read $filename: $!";
+    my $fh = IO::Zlib->new($filename, "rb");
+    die "Failed to read $filename: $!" unless $fh;
     $self->mailrc(join '', <$fh>);
     $fh->close;
   } else {
@@ -29,12 +29,12 @@ sub new {
     close(IN);
   }
 
-  $self->parse;
+  $self->_parse;
 
   return $self;
 }
 
-sub parse {
+sub _parse {
   my $self = shift;
   my $data;
 
@@ -85,11 +85,12 @@ Parse::CPAN::Authors - Parse 01mailrc.txt.gz
   # either a filename as above or pass in the contents of the file
   my $p = Parse::CPAN::Authors->new($mailrc_contents);
 
-  my $a = $p->author('AASSAD');
+  my $author = $p->author('LBROCARD');
   # $a is a Parse::CPAN::Authors::Author object
-  print $a->pauseid, "\n"; # AASSAD
-  print $a->name, "\n";    # Arnaud 'Arhuman' Assad
-  print $a->email, "\n";   # arhuman@hotmail.com
+  # ... objects are returned by Parse::CPAN::Authors
+  print $author->email, "\n";   # leon@astray.com
+  print $author->name, "\n";    # Leon Brocard
+  print $author->pauseid, "\n"; # LBROCARD
 
   # all the author objects
   my @authors = $p->authors;
@@ -106,12 +107,32 @@ contained within.
 Note that this module does not concern itself with downloading this
 file. You should do this yourself.
 
-The constructor takes either the path to the 01mailrc.txt.gz file or
-its contents. It defaults to loading the file from the current
-directory. You must download it yourself.
+=head1 METHODS
 
-In a future release L<Parse::CPAN::Authors::Author> might have more
-information.
+=head2 new()
+
+The new() method is the constructor. It takes either the path to the
+01mailrc.txt.gz file or its contents. It defaults to loading the file
+from the current directory. You must download it yourself.
+
+  # must have downloaded
+  my $p = Parse::CPAN::Authors->new("01mailrc.txt.gz");
+  # either a filename as above or pass in the contents of the file
+  my $p = Parse::CPAN::Authors->new($mailrc_contents);
+
+=head2 author()
+
+The author() method returns a Parse::CPAN::Authors::Author object
+representing a user:
+
+  my $author = $p->author('LBROCARD');
+
+=head2 authors()
+
+The authors() method returns a list of Parse::CPAN::Authors::Author
+objects, for each author on CPAN:
+
+  my @authors = $p->authors;
 
 =head1 AUTHOR
 
