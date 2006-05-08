@@ -2,16 +2,16 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'PL_FILES' => {},
-          'INSTALLDIRS' => 'site',
           'NAME' => 'Parse::CPAN::Authors',
           'VERSION_FROM' => 'lib/Parse/CPAN/Authors.pm',
           'PREREQ_PM' => {
-                           'Test::More' => 0,
-                           'Test::Exception' => 0,
-                           'IO::Zlib' => 0,
-                           'Mail::Address' => 0,
-                           'Class::Accessor::Fast' => 0
-                         }
+                           'Class::Accessor::Fast' => '0',
+                           'IO::Zlib' => '0',
+                           'Mail::Address' => '0',
+                           'Test::Exception' => '0',
+                           'Test::More' => '0'
+                         },
+          'INSTALLDIRS' => 'site',
+          'PL_FILES' => {}
         )
 ;

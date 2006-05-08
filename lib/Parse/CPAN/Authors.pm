@@ -6,7 +6,7 @@ use Parse::CPAN::Authors::Author;
 use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( mailrc data ));
 use vars qw($VERSION);
-$VERSION = '2.24';
+$VERSION = '2.25';
 
 sub new {
   my $class = shift;

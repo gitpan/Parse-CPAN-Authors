@@ -1,5 +1,8 @@
 CHANGES file for Parse::CPAN::Authors
 
+2.25 Mon May  8 13:52:29 BST 2006
+  - no changes, just reupload as it was somehow deleted from CPAN
+
 2.24 Thu Sep 23 16:55:29 BST 2004
   - more docs
   - increased test coverage
