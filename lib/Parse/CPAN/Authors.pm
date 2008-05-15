@@ -1,71 +1,69 @@
 package Parse::CPAN::Authors;
 use strict;
+use Email::Address;
 use IO::Zlib;
-use Mail::Address;
 use Parse::CPAN::Authors::Author;
 use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( mailrc data ));
 use vars qw($VERSION);
-$VERSION = '2.25';
+$VERSION = '2.26';
 
 sub new {
-  my $class = shift;
-  my $filename = shift;
-  my $self = {};
-  bless $self, $class;
+    my $class    = shift;
+    my $filename = shift;
+    my $self     = {};
+    bless $self, $class;
 
-  $filename = '01mailrc.txt.gz' if not defined $filename;
+    $filename = '01mailrc.txt.gz' if not defined $filename;
 
-  if ($filename =~ /^alias /) {
-    $self->mailrc($filename);
-  } elsif ($filename =~ /\.gz/) {
-    my $fh = IO::Zlib->new($filename, "rb");
-    die "Failed to read $filename: $!" unless $fh;
-    $self->mailrc(join '', <$fh>);
-    $fh->close;
-  } else {
-    open(IN, $filename) || die "Failed to read $filename: $!";
-    $self->mailrc(join '', <IN>);
-    close(IN);
-  }
+    if ( $filename =~ /^alias / ) {
+        $self->mailrc($filename);
+    } elsif ( $filename =~ /\.gz/ ) {
+        my $fh = IO::Zlib->new( $filename, "rb" );
+        die "Failed to read $filename: $!" unless $fh;
+        $self->mailrc( join '', <$fh> );
+        $fh->close;
+    } else {
+        open( IN, $filename ) || die "Failed to read $filename: $!";
+        $self->mailrc( join '', <IN> );
+        close(IN);
+    }
 
-  $self->_parse;
+    $self->_parse;
 
-  return $self;
+    return $self;
 }
 
 sub _parse {
-  my $self = shift;
-  my $data;
+    my $self = shift;
+    my $data;
 
-  # Mail::Address warns on some addresses, sigh
-  local $SIG{__WARN__} = sub { };
+    foreach my $line ( split "\n", $self->mailrc ) {
+        my ( $alias, $pauseid, $long ) = split ' ', $line, 3;
+        $long =~ s/^"//;
+        $long =~ s/"$//;
 
-  foreach my $line (split "\n", $self->mailrc) {
-    my($alias, $pauseid, $long) = split ' ', $line, 3;
-    $long =~ s/^"//;
-    $long =~ s/"$//;
-    my $addr = (Mail::Address->parse($long))[0];
-    my $name = $addr->phrase;
-    my $email = $addr->address;
+        my $addr  = ( Email::Address->parse($long) )[0];
+        my $name  = $addr->phrase;
+        my $email = $addr->address;
 
-    my $a = Parse::CPAN::Authors::Author->new;
-    $a->pauseid($pauseid);
-    $a->name($name);
-    $a->email($email);
-    $data->{$pauseid} = $a;
-  }
-  $self->data($data);
+        my $a = Parse::CPAN::Authors::Author->new;
+        $a->pauseid($pauseid);
+        $a->name($name);
+        $a->email($email);
+        $data->{$pauseid} = $a;
+    }
+    $self->data($data);
 }
 
 sub author {
-  my($self, $pauseid) = @_;
-  return $self->data->{$pauseid};
+    my ( $self, $pauseid ) = @_;
+    return $self->data->{$pauseid};
 }
 
 sub authors {
-  my($self) = @_;
-  return values %{$self->data};
+    my ($self) = @_;
+    return values %{ $self->data };
 }
 
 1;

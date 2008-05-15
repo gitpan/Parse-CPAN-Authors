@@ -1,5 +1,8 @@
 CHANGES file for Parse::CPAN::Authors
 
+2.26 Thu May 15 10:32:24 JST 2008
+  - move to Email::Adress to fix names with dots (noticed by Karl Y. Pradene)
+  
 2.25 Mon May  8 13:52:29 BST 2006
   - no changes, just reupload as it was somehow deleted from CPAN
 
