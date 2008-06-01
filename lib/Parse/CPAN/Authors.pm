@@ -1,12 +1,11 @@
 package Parse::CPAN::Authors;
 use strict;
-use Email::Address;
 use IO::Zlib;
 use Parse::CPAN::Authors::Author;
 use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( mailrc data ));
 use vars qw($VERSION);
-$VERSION = '2.26';
+$VERSION = '2.27';
 
 sub new {
     my $class    = shift;
@@ -42,11 +41,7 @@ sub _parse {
         my ( $alias, $pauseid, $long ) = split ' ', $line, 3;
         $long =~ s/^"//;
         $long =~ s/"$//;
-
-        my $addr  = ( Email::Address->parse($long) )[0];
-        my $name  = $addr->phrase;
-        my $email = $addr->address;
-
+        my ($name, $email) = $long =~ /(.*) <(.+)>$/;
         my $a = Parse::CPAN::Authors::Author->new;
         $a->pauseid($pauseid);
         $a->name($name);

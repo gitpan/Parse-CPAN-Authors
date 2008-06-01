@@ -1,5 +1,8 @@
 CHANGES file for Parse::CPAN::Authors
 
+2.27 Sun Jun  1 11:00:25 BST 2008
+  - parse the email addresses by hand (patch by Kenichi Ishigaki)
+
 2.26 Thu May 15 10:32:24 JST 2008
   - move to Email::Adress to fix names with dots (noticed by Karl Y. Pradene)
   

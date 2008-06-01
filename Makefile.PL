@@ -11,8 +11,7 @@ WriteMakefile
                            'Test::More' => 0,
                            'Test::Exception' => 0,
                            'IO::Zlib' => 0,
-                           'Class::Accessor::Fast' => 0,
-                           'Email::Address' => 0
+                           'Class::Accessor::Fast' => 0
                          }
         )
 ;

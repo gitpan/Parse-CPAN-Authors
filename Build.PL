@@ -10,7 +10,6 @@ my $build = Module::Build->new(
         'Test::Exception'       => 0,
         'Test::More'            => 0,
         'Class::Accessor::Fast' => 0,
-        'Email::Address'        => 0,
     },
 );
 $build->create_build_script;

@@ -1,6 +1,6 @@
 ---
 name: Parse-CPAN-Authors
-version: 2.26
+version: 2.27
 author:
   - 'Leon Brocard <acme@astray.com>'
 abstract: Parse 01mailrc.txt.gz
@@ -9,14 +9,13 @@ resources:
   license: http://dev.perl.org/licenses/
 requires:
   Class::Accessor::Fast: 0
-  Email::Address: 0
   IO::Zlib: 0
   Test::Exception: 0
   Test::More: 0
 provides:
   Parse::CPAN::Authors:
     file: lib/Parse/CPAN/Authors.pm
-    version: 2.26
+    version: 2.27
   Parse::CPAN::Authors::Author:
     file: lib/Parse/CPAN/Authors/Author.pm
 generated_by: Module::Build version 0.280801
